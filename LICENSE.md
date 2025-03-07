@@ -1,17 +1,21 @@
-# Non-Commercial Open Source License (NC-OSL) v1.2
+# Non-Commercial Open Source License (NC-OSL) v1.3
 
 ## 1. Definitions
 
 For the purposes of this License:
 
-- **Licensed Work:** The work originally made available under this License, including any modifications or derivative works.  
-- **Non-Commercial Use:** Any use that does not primarily aim to generate commercial revenue. “Commercial revenue” includes, but is not limited to, monetary transactions, advertising revenue, fee-based services, or any activity that directly or indirectly results in profit.  
-- **Modification:** Any alteration, adaptation, translation, or transformation of the Licensed Work, including any derivative works.  
-- **Distribution:** The act of making the Licensed Work (or any Modified Version) available to the public by sale, licensing, or any other transfer of ownership or possession.  
+- **Licensed Work:** The work originally made available under this License, including any modifications or derivative works.
+- **Non-Commercial Use:** Any use that does not primarily aim to generate commercial revenue. "Commercial revenue" includes, but is not limited to, monetary transactions, advertising revenue, fee-based services, or any activity that directly or indirectly results in profit.
+- **Modification:** Any alteration, adaptation, translation, or transformation of the Licensed Work, including any derivative works.
+- **Distribution:** The act of making the Licensed Work (or any Modified Version) available to the public by sale, licensing, or any other transfer of ownership or possession.
+- **Indirect Distribution:** Any use of the Licensed Work, whether publicly or privately, that contributes to the development, design, manufacturing, or simulation of a commercial product or service, even if the Licensed Work itself is not directly transferred to third parties. This includes, but is not limited to:
+  - Using the Licensed Work within a simulator to develop or validate a commercial solution.
+  - Utilizing the Licensed Work privately to generate knowledge, designs, models, or processes that are later commercialized.
+  - Applying the Licensed Work in any manner that supports a commercial endeavor, even if the work is not directly sold or distributed.
 
 ## 2. Grant of License
 
-Subject to the terms of this License, the Licensor grants you (the “Licensee”) a non-exclusive, worldwide, royalty-free, and non-transferable license to use, modify, and distribute the Licensed Work strictly for **Non-Commercial Use**. Any rights not expressly granted herein are reserved by the Licensor.
+Subject to the terms of this License, the Licensor grants you (the "Licensee") a non-exclusive, worldwide, royalty-free, and non-transferable license to use, modify, and distribute the Licensed Work strictly for **Non-Commercial Use**. Any rights not expressly granted herein are reserved by the Licensor.
 
 ## 3. Permitted Uses
 
@@ -24,7 +28,7 @@ b. Distribute Modified Versions or unmodified copies of the Licensed Work, provi
 
 Whenever the Licensed Work or any Modified Version is distributed or publicly displayed, the Licensee must include, in a clear and accessible manner:
 
-a. The original author’s name (or pseudonym, if applicable).  
+a. The original author's name (or pseudonym, if applicable).  
 b. A link to or citation of the original source, if available.  
 c. A copy of this License or a link to the full text of this License.  
 
@@ -34,8 +38,8 @@ The Licensee may not, under any circumstances:
 
 a. Use the Licensed Work, in original or modified form, for any purpose that results in direct or indirect commercial revenue, including but not limited to selling copies, integrating the work into proprietary products, or using it to support fee-based services.  
 b. Sublicense, distribute, or provide the Licensed Work (or any Modified Version) for any commercial purpose.  
-
-For any intended commercial use, the Licensee must contact the Licensor to negotiate and obtain a separate commercial license.
+c. Engage in **Indirect Distribution** (as defined in Section 1) where the Licensed Work is used privately or within a closed system to facilitate or contribute to a commercial outcome.  
+d. For any intended commercial use, including any indirect or private usage leading to commercial benefits, the Licensee must contact the Licensor to negotiate and obtain a separate commercial license.  
 
 ## 6. Modified Versions and Derivative Works
 
@@ -55,7 +59,7 @@ The Licensor reserves the right to seek all available legal remedies, including 
 
 ## 8. Disclaimer of Warranty and Limitation of Liability
 
-The Licensed Work is provided **“AS IS,”** without any express or implied warranties, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. To the fullest extent permitted under applicable law, the Licensor shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use or inability to use the Licensed Work.
+The Licensed Work is provided **"AS IS,"** without any express or implied warranties, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. To the fullest extent permitted under applicable law, the Licensor shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use or inability to use the Licensed Work.
 
 ## 9. Governing Law and Dispute Resolution
 
@@ -74,4 +78,3 @@ This License constitutes the **entire agreement** between the Licensor and Licen
 ## 12. Amendments
 
 Any amendment or modification of this License must be in writing and signed by the Licensor. No waiver of any provision of this License shall be effective unless in writing and signed by the Licensor.
-  
