@@ -71,10 +71,27 @@ This License shall be governed by and construed in accordance with the laws of *
 
 If any provision of this License is found to be unenforceable or invalid under any applicable law, the remaining provisions shall remain in full force and effect. The unenforceable provision shall be deemed modified to the minimum extent necessary to make it enforceable.
 
-## 11. Entire Agreement
+## 11. Restrictions on Commercialization of Derived Scientific Discoveries
+
+Any scientific discovery, knowledge, data, or findings obtained **as a direct or indirect result** of using, modifying, or interacting with the Licensed Work (including its derivatives) shall be subject to the same **Non-Commercial Use** restrictions outlined in this License **if** such discovery:  
+
+- **(a)** Competes with, complements, or replaces any aspect of the Licensed Work, including but not limited to its **purpose, design, functionality, methodology, or intended use**; or  
+- **(b)** Directly or indirectly **enables, facilitates, or enhances** a commercial product, service, or process that would otherwise be restricted under this License.  
+
+The Licensee may **not** use, sell, license, sublicense, distribute, or otherwise exploit any such derived knowledge, discovery, or scientific findings for commercial purposes without **express prior written consent** from the Licensor, including but not limited to:  
+
+- The creation of commercial solutions, products, services, or methodologies based on such knowledge.  
+- The integration of such discoveries into proprietary systems, technologies, or frameworks that generate direct or indirect commercial revenue.  
+- Any form of monetization, licensing, or sublicensing that results in financial or competitive gain.  
+
+This clause shall **not** be construed to limit general academic research, publication, or the dissemination of non-commercial scientific knowledge, **provided** that such dissemination does not violate the restrictions set forth above.  
+
+This provision shall remain enforceable even after termination of this License and shall be interpreted in a manner consistent with all other terms herein.
+
+## 12. Entire Agreement
 
 This License constitutes the **entire agreement** between the Licensor and Licensee with respect to the Licensed Work. It supersedes all prior or contemporaneous understandings, agreements, representations, or communications, whether written or oral, regarding the Licensed Work.
 
-## 12. Amendments
+## 13. Amendments
 
 Any amendment or modification of this License must be in writing and signed by the Licensor. No waiver of any provision of this License shall be effective unless in writing and signed by the Licensor.
