@@ -3,7 +3,7 @@ Non-Commercial Open Source License (NC-OSL) v1.2
 1. Definitions
 For the purposes of this License:
 
-Licensed Work: The work originally made available under this License, including any modifications or derivative works.
+***Licensed Work:*** The work originally made available under this License, including any modifications or derivative works.
 Non-Commercial Use: Any use that does not primarily aim to generate commercial revenue. “Commercial revenue” includes, but is not limited to, monetary transactions, advertising revenue, fee-based services, or any activity that directly or indirectly results in profit.
 Modification: Any alteration, adaptation, translation, or transformation of the Licensed Work, including any derivative works.
 Distribution: The act of making the Licensed Work (or any Modified Version) available to the public by sale, licensing, or any other transfer of ownership or possession.
