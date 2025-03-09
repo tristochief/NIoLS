@@ -1,4 +1,4 @@
-# Non-Commercial Open Source License (NC-OSL) v1.4
+# Non-Commercial Open Source License (NC-OSL) v1.4 (Revised and Enforceable)
 
 ## 1. Definitions
 
@@ -8,24 +8,29 @@ For the purposes of this License:
 - **Licensed Work:** The Original Work provided under this License.
 - **Modification:** Any alteration, adaptation, translation, or transformation of the Original Work.
 - **Modified Version:** A work incorporating one or more Modifications of the Original Work.
-- **Non-Commercial Use:** Use of the Licensed Work or any Modified Version solely for purposes that do not generate or seek to generate any form of revenue intended for profit-making. This includes personal, educational, research, or public interest projects that do not involve commercial intent.
-- **Commercial Revenue:** Any income, profit, or financial gain generated from activities expressly intended for profit-making. This includes, but is not limited to:
+- **Non-Commercial Use:** Use of the Licensed Work or any Modified Version solely for purposes that do not generate or seek to generate any form of **Commercial Revenue**. This includes personal, educational, research, or public interest projects where no financial profit or gain is involved.
+- **Commercial Revenue:** Any income, profit, or financial gain generated from activities intended for profit-making, including:
   - Direct sales, licensing fees, or any payments received in exchange for the Licensed Work or Modified Versions.
-  - Advertising revenue or income generated through promotional activities.
+  - Advertising revenue generated through display, promotion, or sponsorship.
   - Fee-based services where profit is a primary objective.
-  - Any use or integration of the Licensed Work that contributes to the development, design, manufacturing, simulation, validation, or support of a commercial product or service.
-- **Non-Commercial Revenue:** Financial support or incidental income received where the primary goal is not profit generation, such as donations, grants, or modest fees covering operating costs for research, education, or community-based initiatives.
+  - Any use or integration of the Licensed Work that contributes, directly or indirectly, to a commercial product, service, or revenue-generating process.
+- **Non-Commercial Revenue:** Financial support or incidental income received from activities where the primary goal is not profit generation, including donations, grants, or modest fees covering operating costs for research, educational, or community-based initiatives.
 - **Distribution:** Making the Licensed Work or any Modified Version available to the public by sale, licensing, or other transfer.
+- **Indirect Commercial Use:** Any use of the Licensed Work, including Modified Versions, that contributes to the development, design, manufacturing, simulation, validation, or support of a commercial product or service, including:
+  - Internal use in commercial research and development.
+  - Generation of outputs intended for commercialization.
+  - Incorporation into systems for commercial sale or licensing.
+  - Any activity that underpins or facilitates a revenue-generating endeavor.
 
 ## 2. Grant of License
 
-Subject to the terms of this License, the Licensor grants the Licensee a non-exclusive, worldwide, royalty-free, and non-transferable license to use the Licensed Work and to create and distribute Modified Versions strictly for Non-Commercial Use. The Licensee agrees that the Licensed Work shall not be used in any manner that results in or is intended to result in Commercial Revenue. All rights not expressly granted are reserved by the Licensor.
+Subject to the terms of this License, the Licensor grants the Licensee a non-exclusive, worldwide, royalty-free, and non-transferable license to use the Licensed Work and to create and distribute Modified Versions strictly for **Non-Commercial Use**. The Licensee expressly agrees that the Licensed Work shall not be used in any manner that results in or is intended to result in any form of **Commercial Revenue**. All rights not expressly granted are reserved by the Licensor.
 
 ## 3. Permitted Uses
 
-The Licensee may use, copy, modify, and display the Licensed Work for personal, educational, research, or other Non-Commercial Uses. The Licensee may distribute Modified Versions or unmodified copies provided that:
+The Licensee may use, copy, modify, and display the Licensed Work for personal, educational, research, or other purposes that fall under **Non-Commercial Use**. The Licensee may distribute either Modified Versions or unmodified copies provided that:
 - All terms of this License are met.
-- The usage does not result in, nor is it intended to result in, Commercial Revenue.
+- The usage does not result in, nor is it intended to result in, any form of **Commercial Revenue**.
 
 ## 4. Attribution Requirement
 
@@ -36,9 +41,12 @@ Whenever the Licensed Work or any Modified Version is distributed or publicly di
 
 ## 5. Prohibited Commercial Uses
 
-The Licensee may not use, sublicense, distribute, or otherwise exploit the Licensed Work or any Modified Version for any activity intended to generate Commercial Revenue. This includes direct commercialization, integration into commercial products, and activities that contribute to a revenue-generating endeavor.
+The Licensee may not use, sublicense, distribute, or otherwise exploit the Licensed Work or any Modified Version for any activity intended to generate **Commercial Revenue**. This prohibition includes, but is not limited to:
+- Direct commercialization of the Licensed Work or any Modified Version.
+- Indirect commercial use, as defined above.
+- Any activity that contributes to, supports, or underpins a commercial product, service, or revenue-generating endeavor.
 
-For any use that might result in Commercial Revenue, the Licensee must contact the Licensor to obtain a separate commercial license.
+For any use that might result in **Commercial Revenue**, the Licensee must contact the Licensor to obtain a separate commercial license.
 
 ## 6. Modified Versions and Derivative Works
 
@@ -48,11 +56,11 @@ Any distributed Modified Version or derivative work must:
 
 ## 7. Enforcement and Termination
 
-Any breach of this License shall result in the immediate termination of all rights granted herein. Upon termination, the Licensee must:
+Any breach of this License, including any violation of the **Non-Commercial Use** definition, shall result in the immediate termination of all rights granted herein. Upon termination, the Licensee must:
 - Cease all use and distribution of the Licensed Work and any Modified Versions.
 - Provide written confirmation of cessation if requested by the Licensor.
 
-The Licensor reserves the right to pursue legal remedies for any breach. The definitions and restrictions outlined in this License are intended to be enforceable under applicable law.
+The Licensor reserves the right to pursue all legal remedies for any breach. The definitions and restrictions outlined in this License are intended to be enforceable and valid under governing laws.
 
 ## 8. Disclaimer of Warranty and Limitation of Liability
 
@@ -68,15 +76,15 @@ If any provision of this License is held unenforceable or invalid, the remaining
 
 ## 11. Restrictions on Commercialization of Derived Scientific Discoveries
 
-Any scientific discovery, data, or findings obtained as a result of using, modifying, or interacting with the Licensed Work (including its Modified Versions) remain subject to Non-Commercial Use restrictions if they:
-- Compete with, complement, or replace any aspect of the Licensed Work, or
-- Enable, facilitate, or enhance a commercial product, service, or process otherwise restricted by this License.
+Any scientific discovery, data, or findings obtained as a direct or indirect result of using, modifying, or interacting with the Licensed Work (including its Modified Versions) are subject to the **Non-Commercial Use** restrictions if they:
+- Compete with, complement, or replace any aspect of the Licensed Work (including its purpose, design, functionality, methodology, or intended use), or
+- Directly or indirectly enable, facilitate, or enhance a commercial product, service, or process otherwise restricted by this License.
 
-The Licensee may not exploit such discoveries for Commercial Revenue without the Licensor's prior written consent. This does not limit general academic research, publication, or non-commercial dissemination of scientific knowledge.
+The Licensee may not exploit such discoveries for **Commercial Revenue** without the Licensor's express prior written consent. This restriction does not limit general academic research, publication, or the dissemination of non-commercial scientific knowledge, provided that the dissemination does not violate this License. This clause remains enforceable after termination.
 
 ## 12. Entire Agreement
 
-This License constitutes the entire agreement between the Licensor and Licensee with respect to the Licensed Work, superseding all prior agreements or communications.
+This License constitutes the entire agreement between the Licensor and Licensee with respect to the Licensed Work, superseding all prior agreements, representations, or communications.
 
 ## 13. Amendments
 
