@@ -1,3 +1,5 @@
+Copyright (c) 2025 Tristan Claude Berry
+
 # Non-Commercial Open Source License (NC-OSL) v1.4
 
 ## 1. Definitions
