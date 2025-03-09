@@ -1,3 +1,5 @@
+Copyright (c) 2025 Tristan Claude Berry
+
 # Contributing to This Project
 
 Thank you for your interest in contributing to this project! Before contributing, please read and understand the following terms. By submitting a contribution, you **agree** to these terms.
