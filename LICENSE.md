@@ -1,4 +1,4 @@
-# Non-Commercial Open Source License (NC-OSL) v1.4 (Revised and Enforceable)
+# Non-Commercial Open Source License (NC-OSL) v1.4
 
 ## 1. Definitions
 
