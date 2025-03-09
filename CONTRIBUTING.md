@@ -10,7 +10,7 @@ Thank you for your interest in contributing to this project! Before contributing
 - You **retain copyright** over your contributions; however, you **do not** gain ownership or any special rights over the project as a whole.
 - Your contributions **must** be licensed under the same license as the project, as specified in `LICENSE.md`. This means:
   - You cannot impose additional restrictions on your contributions.
-  - You agree that your contributions fall under the **Non-Commercial Open Source License (NC-OSL) v1.3**.
+  - You agree that your contributions fall under the **Non-Commercial Open Source License (NC-OSL) v1.4**.
 
 ## 2. Contributor’s Responsibilities
 
