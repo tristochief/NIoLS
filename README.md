@@ -1,4 +1,4 @@
-# Nicatoöu Instrument and Optical Landing System 
+# Nicatoöu Instrument and Optical Landing System (NIoLS)
 *pronounced "niles"*
 
 ---
