@@ -30,7 +30,7 @@ Subject to the terms and conditions set forth in this License, the Licensor here
   - Use, copy, modify, and display the Licensed Work.
   - Create and distribute Modified Versions of the Licensed Work.
   
-Such rights are strictly limited to **Non-Commercial Use** and shall not be used in any way that results in or is intended to result in the generation of **Commercial Revenue**. The Licensee acknowledges that all rights not expressly granted herein are reserved by the Licensor.
+Such rights are strictly limited to **Non-Commercial Use** and shall not be used in any way that results in or is intended to result in the generation of **Commercial Revenue**. The Licensee agrees to comply with all the terms and conditions of this License, including, but not limited to, the restrictions on Non-Commercial Use and the obligations for Attribution and Prohibited Commercial Uses. The Licensee acknowledges that all rights not expressly granted herein are reserved by the Licensor.
 
 ## 3. Permitted Uses
 
