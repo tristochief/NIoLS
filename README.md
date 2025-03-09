@@ -1,5 +1,5 @@
 # Nicatoöu Instrument and Optical Landing System (NIoLS)
-*pronounced "naɪls"*
+*pronounced "naɪlz"*
 
 ---
 
