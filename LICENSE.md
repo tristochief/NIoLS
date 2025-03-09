@@ -41,7 +41,17 @@ The Licensee may not, under any circumstances:
 a. Use the Licensed Work, in original or modified form, for any purpose that results in direct or indirect commercial revenue, including but not limited to selling copies, integrating the work into proprietary products, or using it to support fee-based services.  
 b. Sublicense, distribute, or provide the Licensed Work (or any Modified Version) for any commercial purpose.  
 c. Engage in **Indirect Distribution** (as defined in Section 1) where the Licensed Work is used privately or within a closed system to facilitate or contribute to a commercial outcome.  
-d. For any intended commercial use, including any indirect or private usage leading to commercial benefits, the Licensee must contact the Licensor to negotiate and obtain a separate commercial license.  
+d. For any intended commercial use, including any indirect or private usage leading to commercial benefits, the Licensee must contact the Licensor to negotiate and obtain a separate commercial license.
+
+## 5.1 Clarification on Whole or Part Usage in Commercial Contexts
+
+Notwithstanding any other provision in this License, the restrictions on commercial use set forth in Section 5 shall apply whether the Licensed Work is used in its entirety or in part. For the purposes of this License:
+
+- **Partial Use:** Any incorporation, extraction, or utilization of any portion of the Licensed Work that contributes directly or indirectly to commercial revenue, commercial advantage, or any commercial endeavor is deemed to be subject to the restrictions of this License.
+- **Indirect Use:** Even if the Licensed Work, in whole or part, is employed in a manner that does not directly transfer or distribute the work but is instead used as an integral component (e.g., within a simulator, model, or any internal process) that facilitates or enhances a commercial product, service, or process, such use shall be considered a violation of the non-commercial terms herein.
+  
+This clarification is intended solely to eliminate any ambiguity regarding the scope of the prohibition on commercial use and shall not be interpreted to extend or otherwise modify any other provisions of this License.
+
 
 ## 6. Modified Versions and Derivative Works
 
