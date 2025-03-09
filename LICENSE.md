@@ -88,7 +88,7 @@ Any scientific discoveries, data, findings, or other intellectual property deriv
   - Such discoveries, data, or findings compete with, complement, or replace any aspect of the Licensed Work.
   - Such discoveries, data, or findings directly or indirectly enable or facilitate the creation, development, or commercialization of a product, service, or process otherwise restricted by this License.
 
-The Licensee agrees that such discoveries shall not be exploited for **Commercial Revenue** without the Licensor's express prior written consent. This provision remains in effect after the termination of this License.
+The Licensee agrees that such discoveries shall not be exploited for **Commercial Revenue** without the Licensor's express prior written and signed consent. This provision remains in effect after the termination of this License.
 
 ## 12. Entire Agreement
 
