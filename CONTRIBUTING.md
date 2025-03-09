@@ -36,7 +36,7 @@ Thank you for your interest in contributing to this project! Before contributing
 
 ## 6. Legal Enforcement and Dispute Resolution
 
-- All contributions fall under the jurisdiction of the **Non-Commercial Open Source License (NC-OSL) v1.3**, as outlined in `LICENSE.md`.
+- All contributions fall under the jurisdiction of the **Non-Commercial Open Source License (NC-OSL) v1.4**, as outlined in `LICENSE.md`.
 - Any legal disputes related to contributions shall be governed by the laws of **New South Wales, Australia** and resolved in its courts.
 
 ## 7. Amendments
