@@ -80,7 +80,7 @@ This License shall be governed by, and construed in accordance with, the laws of
 
 ## 10. Severability
 
-If any provision of this License is determined to be invalid, unenforceable, or void under applicable law, the remainder of this License shall remain in full force and effect, and the invalid or unenforceable provision will be modified to the extent necessary to make it enforceable while achieving the original intent.
+If any provision of this License is determined to be invalid, unenforceable, or void under applicable law, the remainder of this License shall remain in full force and effect. The invalid or unenforceable provision will be modified to the extent necessary to make it enforceable, while maintaining the original intent of the licensor, as reasonably interpreted. In the event that such modification is not possible, the provision will be severed, and the rest of the License will continue in effect, provided that no material changes to the overall balance of the agreement are created.
 
 ## 11. Restrictions on Commercialization of Derived Scientific Discoveries
 
