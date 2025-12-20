@@ -1,0 +1,25 @@
+[Unit]
+Description=NIoLS EUV Detection & Laser Communication Device
+After=network.target
+
+[Service]
+Type=simple
+User=niols
+Group=gpio
+WorkingDirectory=/opt/niols/software
+ExecStart=/usr/bin/python3 /opt/niols/software/start_device.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Resource limits
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+

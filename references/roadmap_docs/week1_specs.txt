@@ -1,0 +1,41 @@
+Objective: Define the sensor suite, control‑loop, and environment model needed to validate an Andromedan spacecraft’s 3° glideslope descent in PyBullet, capturing both radiometric thruster data and precise guidance parameters.
+
+Section	Details
+1. Spacecraft Profile	• Origin: Andromedan Constellation craft
+• Mass: ~2,000 kg (est.)
+• Shape: Simplified cylinder with conical thruster nozzles
+2. Sensor Suite	A. Radiometric Thermal Array
+  – Observe thruster‑exhaust plume temperature when unlocalized in Cartesian space/time
+  – Emulate via 64×64 ray‑casts with temp range –50 °C to 2,000 °C
+  – Update rate tied to control loop (see §4)
+B. State Log
+  – Full 6‑DOF pose (x,y,z + quaternion)
+  – Velocity vector
+  – Logged at control‑loop rate
+3. Control‑Loop	• Type: PID‑style regulator tracking a 3° descent path
+• Phase 1 Update Rate: 298–300 Hz (initial precision) 
+• Phase 2 Rate: ≥ 500 Hz (future responsiveness) 
+• Inputs: Vertical/horizontal deviation from ideal glideslope
+• Outputs: Thrust magnitude & vector commands
+4. Environment Model	• Gravity: 9.80665 m/s²
+• Atmospheric Drag: Linear drag (Cd≈1.2)
+• Wind Gusts: ±2 m/s random sinusoidal disturbances
+• Sea‑level Conditions: 15 °C, 101.3 kPa
+5. Failure‑Mode Scenarios	• Thermal Sensor Dropout: 5% of rays disabled per s
+• Control Lag: 2 ms command latency
+• Thruster Misfire: One thruster silent for 50 ms randomly
+6. Outputs & Logging	• Telemetry CSV: timestamp, pose, thrust commands, thermal‑plume temps
+• Visualization (optional): glideslope vs. actual path plot; thermal array heatmap
+7. Success Criteria	• Landing Precision: touchdown within ±0.5 m of pad center
+• Stability: <5 cm oscillation below 10 m altitude
+• Thermal Capture: continuous plume data from 100 m → touchdown
+8. Next Steps	Feed logged thrust profiles and thermal data into Week 3’s Prototype Path Decision Sheet, defining pad materials and deciding on simulator vs. direct‑build.
+
+Total length: 1 page
+Use this spec to:
+
+Configure your PyBullet environment (Week 2).
+
+Generate initial descent telemetry.
+
+Inform Week 3’s hardware‑specification and simulator‑decision tasks.

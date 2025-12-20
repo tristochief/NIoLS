@@ -1,0 +1,486 @@
+Cursor Design Brief: NIoLS Operational Closure + Deployment
+0. Scope and Objective
+Objective
+
+Transform NIoLS from “procedurally safe” to structurally constrained:
+
+System behavior is determined by predicate-driven state transitions
+
+Outputs are bounded envelopes, not semantic claims
+
+Configuration + calibration are hash-bound and immutable during a session
+
+Logs become hash-chained execution traces sufficient to reconstruct session behavior and prove impossibility claims
+
+Produce a session bundle artifact on shutdown
+
+Non-goals
+
+Adding new detection physics
+
+Changing hardware limits (still Class 1M ≤1 mW)
+
+Introducing networked trust systems (no blockchain / remote attestation)
+
+1. Target Architecture
+1.1 Core components to add
+A) core/fsm.py
+
+A strict finite state machine with:
+
+explicit states
+
+explicit transition table
+
+guard predicates
+
+side-effect hooks
+
+fault latching
+
+B) core/predicates.py
+
+Pure functions evaluating all guard conditions:
+
+interlock status
+
+cooldown timers
+
+calibration validity
+
+config hash match
+
+laser duty/time budget remaining
+
+dependency/hardware health
+
+C) core/contracts.py
+
+Defines the only externally-visible output types:
+
+measurement envelope
+
+emit envelope/window
+
+remaining duty / budget
+
+session status envelope (state + constraints)
+
+D) core/trace.py
+
+Hash-chained append-only event log:
+
+transition records only
+
+deterministic serialization
+
+per-record hash + previous hash
+
+session root hash
+
+E) core/session_bundle.py
+
+Collects and writes a session artifact:
+
+config snapshot + hash
+
+calibration snapshot + hash
+
+trace log + root hash
+
+emit windows + constraint envelopes
+
+health check snapshot at start and end
+
+2. Operational Model
+2.1 State Definitions
+
+Implement a strict FSM (minimum viable):
+
+SAFE
+System inert. Laser disabled. No measurement/emit.
+
+INITIALIZED
+Config+calibration loaded and hash-bound. Hardware health known.
+
+ARMED
+Interlock safe; arming window started. Still no emission.
+
+EMIT_READY
+Arm confirmed; emit window open; budgets computed.
+
+EMITTING
+Emission happening strictly within envelope.
+
+FAULT
+Latched fault; only reset returns to SAFE.
+
+2.2 Transition Policy (example)
+
+SAFE → INITIALIZED: requires config valid + calibration valid + dependencies ok
+
+INITIALIZED → ARMED: requires interlock closed + no outstanding faults + cooldown satisfied
+
+ARMED → EMIT_READY: requires arm confirmation within time window
+
+EMIT_READY → EMITTING: requires budget available + emit request matches constraints
+
+EMITTING → EMIT_READY: after emission completes, budgets reduced, cooldown applied
+
+ANY → FAULT: on predicate failure, interlock open, budget violation attempt, hardware error
+
+FAULT → SAFE: only via explicit reset (and optional physical interlock cycle)
+
+Hard rule: all state changes must pass through fsm.transition(event) which writes a trace record.
+
+3. Output Contract Changes (No semantic outputs)
+3.1 Replace point measurements with envelopes
+
+Old style (to remove from API/UI):
+
+“wavelength = 650 nm”
+
+“signal detected”
+
+“pattern sent”
+
+New style (required):
+
+wavelength_envelope_nm: {min, max, confidence?, valid_until}
+
+voltage_envelope_v: {min, max, rms_noise}
+
+measurement_quality: {snr_estimate, saturation_flag, clipping_flag}
+
+emit_envelope: {power_mw_max, duty_cycle_max, t_start, t_end, pulse_width_bounds}
+
+budget: {remaining_emit_ms, remaining_duty_percent, cooldown_remaining_ms}
+
+Implementation detail
+
+Use calibration table to compute envelope bounds; propagate ADC noise + calibration interpolation error (coarse is fine, but must be explicit and consistent).
+
+Envelope granularity can be conservative: better wide bounds than fake precision.
+
+4. Config + Calibration Binding (Session immutability)
+4.1 Hash binding
+
+On transition SAFE→INITIALIZED:
+
+load config YAML
+
+load calibration table
+
+compute hashes:
+
+config_hash = sha256(canonical_json(config))
+
+cal_hash = sha256(canonical_json(calibration))
+
+store in session context
+
+write trace record containing hashes
+
+4.2 Mutation policy
+
+During INITIALIZED and beyond:
+
+any config/calibration change detection triggers:
+
+immediate FAULT (or forced SAFE)
+
+trace record “CONFIG_DRIFT” with new/old hash
+
+configuration edits only allowed in SAFE state.
+
+5. Execution Trace (Hash-chained)
+5.1 Trace record schema
+
+Each record (JSON line):
+
+ts (monotonic + wall clock)
+
+seq
+
+prev_hash
+
+event_type (STATE_TRANSITION | FAULT | EMIT_REQUEST | EMIT_RESULT | MEASUREMENT_ENVELOPE_SNAPSHOT)
+
+state_from, state_to
+
+predicates (names + boolean + key numeric bounds)
+
+session_id
+
+config_hash, cal_hash
+
+hash (sha256 of canonical record without hash field)
+
+Only record what is needed to reconstruct state-space behavior.
+
+5.2 Session root hash
+
+At shutdown, write root_hash = last record hash + session metadata hash.
+
+6. Enforced Limits
+
+Must be enforced in code (not docs):
+
+Laser power fixed cap (≤1 mW; treat as constant upper bound)
+
+Max continuous emit time (configurable, but bounded)
+
+Duty cycle cap
+
+Cooldown enforcement between emits
+
+Maximum pattern length / element count
+
+Reject requests that exceed envelope → FAULT
+
+7. Repository Integration Plan (file-by-file)
+
+Your repo currently mixes references to Streamlit GUI and also FastAPI + React. This plan treats the backend as the authoritative constrained layer, and the UI(s) become thin clients.
+
+7.1 Create new module directory
+
+software/core/ (or software/niols_core/)
+
+Files to add:
+
+software/core/fsm.py
+
+software/core/predicates.py
+
+software/core/contracts.py
+
+software/core/trace.py
+
+software/core/session_bundle.py
+
+software/core/context.py (SessionContext dataclass)
+
+7.2 Update hardware control wrappers
+
+Modify:
+
+software/hardware_control/laser_controller.py
+
+software/hardware_control/photodiode_reader.py
+
+software/hardware_control/system_health.py
+
+software/hardware_control/signal_processor.py
+
+Changes:
+
+Laser controller must accept emit envelopes and refuse anything else.
+
+Photodiode reader must return measurement envelopes.
+
+System health provides predicate inputs (interlock, dependencies, hardware presence).
+
+7.3 Update API server
+
+If using FastAPI (software/api_server.py):
+
+Replace endpoints returning point values with envelope objects.
+
+Add endpoints:
+
+POST /initialize
+
+POST /arm
+
+POST /emit (accepts pattern request, returns emit_envelope + trace seq)
+
+POST /stop (forces EMITTING→EMIT_READY or FAULT→SAFE depending on design)
+
+GET /status (state + budgets + config/cal hash)
+
+GET /session/bundle (path to session artifact after stop)
+
+If using Streamlit UI (software/gui/...):
+
+UI must call the FSM functions (directly or via API), never hardware modules directly.
+
+7.4 Add “verify gate” script
+
+Add:
+
+software/verify.sh or software/verify.py
+
+It must run:
+
+dependency check
+
+config validation
+
+tests
+
+a headless init/arm simulation
+
+trace creation sanity check
+
+write permission check in logs dir
+
+8. Testing Requirements (Must be automated)
+8.1 Unit tests
+
+FSM transition legality (table-driven tests)
+
+Predicate correctness (mock interlock, mock cooldown)
+
+Hash binding stability (canonicalization determinism)
+
+Trace chaining integrity (tamper detection)
+
+8.2 Integration tests
+
+SAFE→INITIALIZED→ARMED→EMIT_READY→EMITTING→EMIT_READY
+
+Interlock opens mid-emit triggers FAULT within required timing
+
+Over-budget emit request triggers FAULT
+
+Config drift triggers FAULT/SAFE
+
+8.3 Simulation mode
+
+If hardware absent:
+
+provide deterministic simulated photodiode + laser with fixed envelopes
+
+ensure behavior identical except health predicates “SIMULATION=true”
+
+9. Deployment Plan (Pi-first, deterministic)
+9.1 Packaging
+
+Ensure software/setup.py installs core + dependencies
+
+Pin dependency versions in requirements.txt (or use lockfile)
+
+9.2 Runtime
+
+start_device.py becomes:
+
+runs verify gate
+
+starts API (and/or UI)
+
+creates new session id
+
+writes session bundle on exit (SIGTERM handler)
+
+9.3 System service
+
+Add a systemd unit example:
+
+auto-restart on failure
+
+logs to file + journal
+
+runs as dedicated user in gpio group
+
+9.4 Artifact location
+
+Session bundles stored:
+
+logs/sessions/<session_id>/
+
+trace.jsonl
+
+config.json
+
+calibration.json
+
+health_start.json
+
+health_end.json
+
+session_manifest.json (root hash, versions)
+
+10. Acceptance Criteria (Definition of Done)
+
+A PR is “done” only if:
+
+All emission requires the FSM path and is impossible outside it.
+
+All outputs are envelope-only; point values removed from API/UI.
+
+Config and calibration are hash-bound at initialization; drift forces SAFE/FAULT.
+
+Trace logs are hash-chained; tampering is detectable.
+
+Session bundle is generated on shutdown and contains:
+
+hashes, trace, config/cal snapshots, health snapshot
+
+Tests cover:
+
+legal and illegal transitions
+
+interlock faults
+
+budget violations
+
+drift detection
+
+verify.sh passes on:
+
+dev machine (simulation)
+
+Raspberry Pi (hardware or simulation)
+
+11. Cursor AI Execution Instructions (how to run this in Cursor)
+11.1 Recommended Cursor workflow
+
+Create tasks in this order (each as a separate Cursor “ticket”):
+
+Implement FSM + SessionContext
+
+Add core files and unit tests
+
+Add predicate layer + safety envelopes
+
+Update hardware wrappers to return predicate inputs and envelopes
+
+Trace chaining + session bundle
+
+Add trace.jsonl, root hash, bundle writer, tamper test
+
+API/UI refactor
+
+API returns envelopes; UI updated to display bounds and budgets only
+
+Verify gate + deployment artifacts
+
+verify script, systemd example, packaging fixes
+
+11.2 Guardrails for Cursor agents
+
+Agents must not call hardware modules directly from UI; only via FSM/API.
+
+Agents must not introduce new “interpretive” strings.
+
+Agents must enforce hard limits in code, not warnings.
+
+Any “optional safety” must be converted into an enforced predicate.
+
+12. Deliverables Checklist (what you should see in the repo)
+
+software/core/* new modules
+
+Envelope contracts used everywhere
+
+Updated api_server.py or equivalent
+
+Updated UI client(s)
+
+verify.sh / verify.py
+
+Expanded unit + integration tests
+
+Session bundles produced consistently
+
+Documentation updates: add an “Operational Closure” section to README + verification

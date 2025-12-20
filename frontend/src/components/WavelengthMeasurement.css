@@ -1,0 +1,83 @@
+.wavelength-measurement {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wavelength-measurement h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.measurement-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.measurement-controls .btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.measurement-controls .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.measurement-controls .btn-primary {
+  background-color: #0066cc;
+  color: white;
+}
+
+.measurement-controls .btn-primary:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+
+.measurement-controls .btn-secondary {
+  background-color: #666;
+  color: white;
+}
+
+.measurement-controls .btn-secondary:hover:not(:disabled) {
+  background-color: #555;
+}
+
+.measurement-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.plot-container {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
