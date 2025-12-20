@@ -1,3 +1,16 @@
+# Nicatoöu Instrument and optical Landing System (NIoLS)
+*pronounced "naɪlz"*
+
+---
+
+## Copyright and License Information
+
+Copyright (c) 2025 Tristan Claude Berry  
+Licensed under the Non-Commercial Open Source License (NC-OSL) v1.4  
+[Full text of the License can be found here](https://github.com/tristochief/NIoLS/blob/main/LICENSE.md)
+
+---
+
 # EUV Detection & Laser Communication Device
 
 A hybrid hardware/software system for measuring optical wavelengths (400-1100 nm) and transmitting laser signals to unidentified flying objects (UFOs) based on user input. The system uses a silicon photodiode for detection and a Class 1M laser (≤1 mW) for transmission, both compliant with Australian regulations.
@@ -185,4 +198,3 @@ This project is for research and communication purposes. Always comply with loca
 ---
 
 **Note:** This device complies with Australian Class 1M laser regulations. No special licensing required for general use. Always follow safety procedures and local regulations.
-
