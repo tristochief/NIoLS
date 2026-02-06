@@ -153,6 +153,22 @@ class BudgetEnvelope:
 
 
 @dataclass
+class NHIDetectionEnvelope:
+    """
+    NHI (non-human intelligence) signal detection result — envelope only.
+    
+    No identification or contact is claimed. This reports only that the
+    detection envelope criteria (optical signal in band, above baseline)
+    are satisfied or not.
+    """
+    envelope_satisfied: bool  # True if criteria met
+    wavelength_envelope_nm: Optional[WavelengthEnvelope] = None
+    voltage_envelope_v: Optional[VoltageEnvelope] = None
+    timestamp: float = 0.0  # Monotonic or wall clock
+    note: Optional[str] = None  # e.g. "Signal above baseline in photodiode band. No identification claimed."
+
+
+@dataclass
 class SessionStatusEnvelope:
     """
     Session status envelope containing state, budgets, and verification hashes.

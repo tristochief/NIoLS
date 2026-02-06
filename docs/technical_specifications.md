@@ -282,6 +282,15 @@ The EUV Detection & Laser Communication Device is a hybrid hardware/software sys
 - Software support ready for integration
 - Calibration procedures defined
 
+## Physical Deployment (ET Interface)
+
+Per the ET Engineering Interface Model, physical deployment for the NHI two-way optical link has the following requirements:
+
+- **Time-varying pointing:** Hardware must support **time-varying pointing** (membrane alignment). The pointing update rate is to be specified (e.g. `pointing_update_rate_hz` in config when defined). This applies to membrane alignment, not the approach trajectory.
+- **Approach geometry fixed:** Approach trajectory (bearing, elevation, standoff) **does not change during approach**. Time-varying pointing is for membrane alignment only.
+
+See **docs/ET_Engineering_Interface_Model.md** for full ET interface parameters and **docs/NHI_Detection_Prototype.md** for the prototype config reference.
+
 ## Compliance and Standards
 
 ### Regulatory Compliance

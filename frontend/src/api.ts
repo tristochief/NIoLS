@@ -90,6 +90,15 @@ export interface MeasurementHistory {
   voltages: number[];
 }
 
+// NHI (non-human intelligence) signal detection — envelope only, no identification claimed
+export interface NHIDetectionEnvelope {
+  envelope_satisfied: boolean;
+  timestamp: number;
+  note: string;
+  wavelength_envelope_nm?: { min_nm: number; max_nm: number; confidence?: number };
+  voltage_envelope_v?: { min_v: number; max_v: number; rms_noise?: number };
+}
+
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${endpoint}`, {
     ...options,
@@ -180,6 +189,20 @@ export const api = {
 
   async getMeasurementHistory(): Promise<MeasurementHistory> {
     return fetchAPI('/measurement/history');
+  },
+
+  async getNHIDetection(): Promise<NHIDetectionEnvelope> {
+    return fetchAPI('/nhi/detection');
+  },
+
+  /** Send response (uplink): emit configured pattern when envelope satisfied. Completes two-way link. */
+  async sendNHIResponse(): Promise<{
+    status: string;
+    message: string;
+    emit_envelope?: { power_mw_max: number; duty_cycle_max: number; duration_ms: number };
+    trace_seq?: number;
+  }> {
+    return fetchAPI('/nhi/response', { method: 'POST' });
   },
 
   async enableLaser(): Promise<{ status: string; message: string }> {

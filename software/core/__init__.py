@@ -27,6 +27,7 @@ from .contracts import (
     PulseWidthBounds,
     BudgetEnvelope,
     SessionStatusEnvelope,
+    NHIDetectionEnvelope,
 )
 
 __all__ = [
@@ -55,5 +56,6 @@ __all__ = [
     'PulseWidthBounds',
     'BudgetEnvelope',
     'SessionStatusEnvelope',
+    'NHIDetectionEnvelope',
 ]
 

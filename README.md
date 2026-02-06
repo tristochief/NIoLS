@@ -63,6 +63,8 @@ NIoLS/
 
 ## Quick Start
 
+**Complete beginner?** See [Complete Deployment Guide](docs/Complete_Deployment_Guide.md) for a step-by-step process from budget and purchase through delivery, assembly, software setup, calibration, and operation.
+
 ### Prerequisites
 
 - Python 3.8+
@@ -101,6 +103,7 @@ npm run build
 
 ## Documentation
 
+- **Complete Deployment Guide:** `docs/Complete_Deployment_Guide.md` - Step-by-step from budget to operational (no skills assumed)
 - **User Manual:** `docs/user_manual.md` - Complete usage guide
 - **Safety Compliance:** `docs/safety_compliance.md` - Australian regulations and safety
 - **Technical Specifications:** `docs/technical_specifications.md` - Detailed technical info

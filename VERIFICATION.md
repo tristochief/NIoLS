@@ -204,6 +204,35 @@ for file in required_files:
 print(f"Root hash: {manifest.get('root_hash', 'MISSING')}")
 ```
 
+## NHI Signal Capture (Prototype)
+
+- [ ] **ET Interface Config**
+  - `et_interface` in `device_config.yaml`: approach_bearing_deg 13°, elevation_band_nm 12 (vertical at 98.5 km), slope_deg 12°, standoff_km 98.5, **timing_hz 130**; tolerances 0± for bearing, elevation, standoff; time_varying_pointing_required
+  - Detection: baseline_above_dark_v, wavelength_min_nm 320, wavelength_max_nm 1100
+  - Response: pattern_type (geometric/morse), geometric_type, message, size, require_envelope_for_response
+
+- [ ] **NHI Detection Envelope**
+  - Envelope-based only: voltage above baseline (dark + baseline_above_dark_v), wavelength in band, no saturation/clipping
+  - No identification or contact claimed — only "envelope_satisfied" true/false
+  - GET `/api/nhi/detection` returns NHIDetectionEnvelope; frontend panel shows status and disclaimer
+
+- [ ] **NHI Response (Uplink) — End-to-End**
+  - POST `/api/nhi/response` emits configured pattern when envelope_satisfied and state EMIT_READY; all emission via FSM and budget
+  - Frontend "Send response (uplink)" button enabled when envelope satisfied and EMIT_READY; completes two-way optical link
+  - No identification or contact claimed; response is envelope-triggered emission only
+
+- [ ] **Two-Way Optical Link (Model)**
+  - Downlink: "their light" detected by photodiode (320–1100 nm); detection is envelope-based per NIoLS doctrine
+  - Uplink: our laser (532/650 nm, ≤1 mW) sends response pattern; specific pointing (bearing 13°, etc.) in physical deployment; time-varying pointing required for membrane
+
+- [ ] **Protocol (ET Diplomat)**
+  - Do not interfere with human detection systems
+  - No direct-fear language in UI, runbooks, or docs (indirect fear acceptable)
+  - Review user- and external-facing strings (UI labels, runbook text, log messages, doc phrases) for (1) risk of interfering with human detection systems, (2) direct fear-inducing language
+
+- [ ] **Timing 130 Hz (phase-in/sync from ET)**
+  - Use `timing_hz: 130` in config; 12 rev/ms is deprecated. Harmonic verification at 12 kHz remains disabled (`harmonic_verification_enabled: false`); current sample rate 250 SPS; 12 kHz would require >> 24 kHz sampling.
+
 ## Professional Readiness
 
 - [ ] **Code Quality**

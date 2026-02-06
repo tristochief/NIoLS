@@ -105,6 +105,34 @@ safety:
   max_continuous_time: 3600  # seconds (1 hour)
   cooldown_time: 60  # seconds
 
+# ET Interface (ET Engineering Interface Model)
+# Approach geometry and timing from ET Engineering elicitation
+et_interface:
+  approach_bearing_deg: 13
+  approach_bearing_tolerance_deg: 0
+  elevation_band_nm: 12        # vertical extent (nm) at standoff_km; 12 nm at 98.5 km
+  elevation_band_tolerance_nm: 0
+  slope_deg: 12                # slope (degrees); separate from elevation vertical extent
+  standoff_km: 98.5
+  standoff_tolerance_km: 0
+  timing_hz: 130               # phase-in / sync envelope (from ET); use instead of revolution_rate_per_ms
+  revolution_rate_per_ms: 12   # deprecated: use timing_hz
+  time_varying_pointing_required: true   # membrane deformation; physical deployment
+  # Detection: envelope-based; signal above baseline in photodiode band (320-1100 nm)
+  detection:
+    baseline_above_dark_v: 0.02   # min voltage above dark to consider "signal present"
+    wavelength_min_nm: 320
+    wavelength_max_nm: 1100
+    # Harmonic verification at 12 kHz remains disabled; timing envelope is 130 Hz
+    harmonic_verification_enabled: false
+  # Response (uplink): pattern to emit when operator sends "response" after detection envelope satisfied
+  response:
+    pattern_type: geometric       # geometric | morse
+    geometric_type: circle        # circle | spiral | triangle (for geometric)
+    message: "OK"                 # for morse
+    size: 12                      # pattern length for geometric
+    require_envelope_for_response: true  # if true, POST /api/nhi/response only emits when envelope_satisfied
+
 # Advanced Settings
 advanced:
   # Simulation Mode (for testing without hardware)

@@ -8,7 +8,7 @@ import asyncio
 import logging
 import time
 from pathlib import Path
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Any
 import sys
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks
@@ -33,12 +33,14 @@ try:
         load_config_and_hash, load_calibration_and_hash,
         detect_config_drift, detect_calibration_drift,
         MeasurementEnvelope, EmitEnvelope, BudgetEnvelope, SessionStatusEnvelope,
-        PulseWidthBounds
+        PulseWidthBounds, NHIDetectionEnvelope,
     )
     CORE_AVAILABLE = True
 except ImportError as e:
     logger.warning(f"Core modules not available: {e}")
     CORE_AVAILABLE = False
+
+from hardware_control.nhi_detector import NHIDetector
 
 # Setup logging
 logging.basicConfig(
@@ -81,6 +83,7 @@ class AppState:
         self.fsm: Optional[FSM] = None
         self.trace_writer: Optional[TraceWriter] = None
         self.session_bundle: Optional[SessionBundle] = None
+        self.nhi_detector: Optional[NHIDetector] = None
 
 app_state = AppState()
 
@@ -160,28 +163,26 @@ class StatusResponse(BaseModel):
 
 # Background task for continuous measurements
 async def measurement_loop():
-    """Background task for continuous measurements."""
+    """Background task for continuous measurements. Uses envelope-based output."""
     while app_state.measurement_running:
         try:
             if app_state.photodiode_reader:
-                wavelength = app_state.photodiode_reader.get_wavelength()
-                voltage = app_state.photodiode_reader.get_voltage()
-                
-                app_state.last_measurement = {
-                    'wavelength': wavelength,
-                    'voltage': voltage
-                }
-                
-                # Update processor
+                envelope = app_state.photodiode_reader.get_measurement_envelope()
+                app_state.last_measurement_envelope = envelope
+                # Derive point values for history from envelope center
+                wavelength = None
+                voltage = 0.0
+                if envelope.voltage_envelope_v:
+                    voltage = (envelope.voltage_envelope_v.min_v + envelope.voltage_envelope_v.max_v) / 2.0
+                if envelope.wavelength_envelope_nm:
+                    wavelength = (envelope.wavelength_envelope_nm.min_nm + envelope.wavelength_envelope_nm.max_nm) / 2.0
                 laser_state = "off"
                 if app_state.laser_controller:
                     laser_state = app_state.laser_controller.get_state().value
-                
                 if app_state.signal_processor:
                     app_state.signal_processor.add_measurement(
                         wavelength, voltage, laser_state
                     )
-            
             update_rate = app_state.config.get('preferences', {}).get('update_rate', 1.0)
             await asyncio.sleep(update_rate)
         except Exception as e:
@@ -243,6 +244,9 @@ async def initialize_hardware():
             app_state.signal_processor = SignalProcessor(log_dir=log_dir)
             if app_state.config.get('logging', {}).get('auto_start_session', True):
                 app_state.signal_processor.start_logging_session()
+        
+        if app_state.nhi_detector is None:
+            app_state.nhi_detector = NHIDetector.from_config(app_state.config)
         
         # Initialize FSM context if not exists
         if app_state.context is None:
@@ -564,6 +568,110 @@ async def get_measurement_history():
         "wavelengths": wavelengths,
         "voltages": voltages
     }
+
+
+@app.get("/api/nhi/detection")
+async def get_nhi_detection():
+    """
+    Get NHI (non-human intelligence) signal detection envelope.
+    
+    Returns envelope-based detection result only. No identification or
+    contact is claimed — only whether detection envelope criteria
+    (optical signal in band, above baseline) are satisfied.
+    """
+    if not app_state.photodiode_reader or not app_state.nhi_detector:
+        return {
+            "envelope_satisfied": False,
+            "note": "Photodiode or NHI detector not initialized.",
+            "timestamp": time.time(),
+        }
+    envelope = app_state.last_measurement_envelope
+    if envelope is None:
+        try:
+            envelope = app_state.photodiode_reader.get_measurement_envelope()
+            app_state.last_measurement_envelope = envelope
+        except Exception as e:
+            logger.warning(f"Could not get measurement envelope for NHI: {e}")
+            return {
+                "envelope_satisfied": False,
+                "note": "No measurement envelope available.",
+                "timestamp": time.time(),
+            }
+    dark_v = getattr(app_state.photodiode_reader, "dark_voltage", 0.0)
+    result = app_state.nhi_detector.evaluate(envelope, dark_voltage=dark_v)
+    out = {
+        "envelope_satisfied": result.envelope_satisfied,
+        "timestamp": result.timestamp,
+        "note": result.note,
+    }
+    if result.wavelength_envelope_nm:
+        out["wavelength_envelope_nm"] = {
+            "min_nm": result.wavelength_envelope_nm.min_nm,
+            "max_nm": result.wavelength_envelope_nm.max_nm,
+            "confidence": getattr(result.wavelength_envelope_nm, "confidence", None),
+        }
+    if result.voltage_envelope_v:
+        out["voltage_envelope_v"] = {
+            "min_v": result.voltage_envelope_v.min_v,
+            "max_v": result.voltage_envelope_v.max_v,
+            "rms_noise": getattr(result.voltage_envelope_v, "rms_noise", None),
+        }
+    return out
+
+
+@app.post("/api/nhi/response")
+async def send_nhi_response():
+    """
+    Send response (uplink): emit configured pattern when detection envelope is satisfied.
+    
+    Completes the two-way optical link: we detected signal (downlink) → we send back (uplink).
+    Uses et_interface.response config; all emission via FSM and budget. No identification claimed.
+    """
+    if not CORE_AVAILABLE or app_state.fsm is None:
+        raise HTTPException(status_code=400, detail="System not initialized")
+    if app_state.context.state != FSMState.EMIT_READY:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Must be in EMIT_READY state to send response; current state: {app_state.context.state.value}",
+        )
+    if not app_state.photodiode_reader or not app_state.nhi_detector:
+        raise HTTPException(status_code=400, detail="Photodiode or NHI detector not initialized")
+    if not app_state.laser_controller or not app_state.signal_processor:
+        raise HTTPException(status_code=400, detail="Laser controller or signal processor not initialized")
+
+    resp_cfg = app_state.config.get("et_interface", {}).get("response", {})
+    require_envelope = resp_cfg.get("require_envelope_for_response", True)
+    pattern_type = resp_cfg.get("pattern_type", "geometric")
+    geometric_type = resp_cfg.get("geometric_type", "circle")
+    message = resp_cfg.get("message", "OK")
+    size = resp_cfg.get("size", 12)
+
+    # Re-evaluate NHI detection (use latest measurement)
+    envelope = app_state.last_measurement_envelope
+    if envelope is None:
+        try:
+            envelope = app_state.photodiode_reader.get_measurement_envelope()
+            app_state.last_measurement_envelope = envelope
+        except Exception as e:
+            logger.warning(f"Could not get measurement envelope for NHI response: {e}")
+    dark_v = getattr(app_state.photodiode_reader, "dark_voltage", 0.0)
+    nhi_result = app_state.nhi_detector.evaluate(envelope, dark_voltage=dark_v) if envelope else None
+
+    if require_envelope and (not nhi_result or not nhi_result.envelope_satisfied):
+        raise HTTPException(
+            status_code=400,
+            detail="Detection envelope not satisfied. Response only sent when envelope criteria are met (config: require_envelope_for_response).",
+        )
+
+    # Emit using same FSM/budget path as /api/emit
+    request = PatternRequest(
+        pattern_type=pattern_type,
+        message=message if pattern_type == "morse" else None,
+        geometric_type=geometric_type if pattern_type == "geometric" else None,
+        size=size,
+    )
+    return await emit_pattern(request)
+
 
 @app.post("/api/laser/enable")
 async def enable_laser():

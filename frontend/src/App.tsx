@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { api, Status, HealthStatus, MeasurementHistory, SessionStatus, MeasurementEnvelope } from './api'
+import { api, Status, HealthStatus, MeasurementHistory, SessionStatus, MeasurementEnvelope, NHIDetectionEnvelope } from './api'
 import Sidebar from './components/Sidebar'
 import WavelengthMeasurement from './components/WavelengthMeasurement'
 import LaserControl from './components/LaserControl'
+import NHIDetectionPanel from './components/NHIDetectionPanel'
 import './App.css'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [healthStatus, setHealthStatus] = useState<HealthStatus | null>(null)
   const [measurementHistory, setMeasurementHistory] = useState<MeasurementHistory>({ wavelengths: [], voltages: [] })
   const [measurementEnvelope, setMeasurementEnvelope] = useState<MeasurementEnvelope | null>(null)
+  const [nhiDetection, setNHIDetection] = useState<NHIDetectionEnvelope | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -57,21 +59,32 @@ function App() {
     }
   }, [])
 
+  const loadNHIDetection = useCallback(async () => {
+    try {
+      const detection = await api.getNHIDetection()
+      setNHIDetection(detection)
+    } catch (err) {
+      // Ignore errors for NHI detection
+    }
+  }, [])
+
   useEffect(() => {
     loadStatus()
     loadHealthStatus()
     loadMeasurementHistory()
     loadMeasurementEnvelope()
+    loadNHIDetection()
 
     // Poll for status updates
     const interval = setInterval(() => {
       loadStatus()
       loadMeasurementHistory()
       loadMeasurementEnvelope()
+      loadNHIDetection()
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [loadStatus, loadHealthStatus, loadMeasurementHistory, loadMeasurementEnvelope])
+  }, [loadStatus, loadHealthStatus, loadMeasurementHistory, loadMeasurementEnvelope, loadNHIDetection])
 
   const handleInitialize = async () => {
     setLoading(true)
@@ -189,6 +202,23 @@ function App() {
                     setError(err instanceof Error ? err.message : 'Failed to calibrate dark voltage')
                   }
                 }}
+              />
+              <NHIDetectionPanel
+                detection={nhiDetection}
+                sessionStatus={sessionStatus}
+                onSendResponse={async () => {
+                  setLoading(true)
+                  setError(null)
+                  try {
+                    await api.sendNHIResponse()
+                    await loadStatus()
+                  } catch (err) {
+                    setError(err instanceof Error ? err.message : 'Send response failed')
+                  } finally {
+                    setLoading(false)
+                  }
+                }}
+                loading={loading}
               />
             </div>
 
