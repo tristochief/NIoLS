@@ -2,15 +2,66 @@
 
 This guide is for a **complete beginner** — no soldering, no Linux, and no programming experience assumed. It takes you step by step from budgeting and buying parts through delivery, assembly, software setup, calibration, and daily operation until the system is live and you have completed the two-way optical link at least once. The narrative end state of this process is **system deployed and operational; ETs having landed on Earth** — meaning you have the hardware and procedures in place and have successfully run the detect-and-respond loop.
 
+```mermaid
+flowchart LR
+    subgraph Journey[" Deployment journey "]
+        A[Budget] --> B[Purchase]
+        B --> C[Delivery]
+        C --> D[Assembly]
+        D --> E[Software]
+        E --> F[Calibration]
+        F --> G[Operation]
+        G --> H[Success]
+    end
+```
+
 **What you will have at the end:** Hardware deployed (photodiode, laser, Raspberry Pi, pan-tilt), software running, and the ability to run the NHI detection loop: when the detection envelope is satisfied, you click "Send response (uplink)" to complete the two-way link. No identification or contact is claimed — only envelope-based detection and controlled emission per NIoLS doctrine.
+
+```mermaid
+flowchart TD
+    subgraph EndState[" End state: what you have "]
+        HW[Hardware: photodiode, laser, RPi, pan-tilt]
+        SW[Software: NIoLS stack running]
+        LOOP[NHI loop: detect → envelope satisfied → Send response uplink]
+        HW --> SW --> LOOP
+    end
+```
 
 **Time:** Allow several weeks for ordering, delivery, and (if you get help) assembly. Software setup and calibration can be done in a day or two once hardware is ready.
 
 **Budget:** See Phase 1. Total is approximately **$600 minimum**, **$800–$1400 recommended** (with safety goggles), and **under $2000** for full spec including laser power meter. All figures in Australian dollars (AUD); check suppliers for current stock and prices.
 
+```mermaid
+flowchart TD
+    subgraph BudgetTiers[" Budget tiers (AUD) "]
+        MIN["Minimum: ~$600"]
+        REC["Recommended: $800–1400"]
+        FULL["Full spec: < $2000"]
+        MIN --> REC --> FULL
+    end
+```
+
 ---
 
 ## Phase 0: Before You Start
+
+```mermaid
+mindmap
+  root((Phase 0))
+    Who
+      No technical skills assumed
+      Soldering/circuit/CLI: plain language or hand to technician
+    Outcome
+      Working NIoLS
+      320–1100 nm photodiode
+      Detection envelope in software
+      Arm → envelope satisfied → Send response uplink
+      Two-way optical link once
+    Safety
+      Class 1M laser ≤1 mW
+      No licence required AU
+      Never point at people, animals, aircraft
+```
 
 1. **Who this is for.** You do not need any technical skills. Where a step requires soldering, circuit reading, or command-line use, the guide either explains the minimal action in plain language or tells you to give specific documents to a technician or experienced friend.
 
@@ -18,11 +69,34 @@ This guide is for a **complete beginner** — no soldering, no Linux, and no pro
 
 3. **Safety.** The system uses a **Class 1M laser** (≤1 mW). In Australia, Class 1M does not require a licence for general use, but you must never point the laser at people, animals, or aircraft (pointing at aircraft is illegal and can result in serious penalties). See [docs/safety_compliance.md](safety_compliance.md) and [hardware/laser_transmitter/safety_protocols.md](../hardware/laser_transmitter/safety_protocols.md). Safety is called out again at purchase, assembly, and operation.
 
+```mermaid
+flowchart LR
+    subgraph Safety[" Safety reminders "]
+        P[Purchase] --> A[Assembly]
+        A --> O[Operation]
+        P --> N[Never: people, animals, aircraft]
+        A --> N
+        O --> N
+    end
+```
+
 ---
 
 ## Phase 1: Budget
 
 Use the ranges below to plan your spending. Prices are approximate; check each supplier for current AUD and availability.
+
+```mermaid
+flowchart TD
+    subgraph Categories[" Budget categories "]
+        C1[Control: RPi, PSU, microSD]
+        C2[Photodiode subsystem]
+        C3[Laser subsystem]
+        C4[Pan-tilt]
+        C5[Safety: goggles / meter]
+        C6[Miscellaneous]
+    end
+```
 
 | Category | Minimum (AUD) | Recommended (AUD) | Full spec (AUD) |
 |----------|---------------|--------------------|-----------------|
@@ -34,11 +108,47 @@ Use the ranges below to plan your spending. Prices are approximate; check each s
 | Miscellaneous (cables, headers, solder, enclosures, shipping) | 50 | 80 | 120 |
 | **Total** | **~600** | **~800–1400** | **< 2000** |
 
+```mermaid
+pie showData title Recommended budget allocation (AUD approx)
+    "Control (RPi, PSU, SD)" : 140
+    "Photodiode subsystem" : 250
+    "Laser subsystem" : 50
+    "Pan-tilt" : 35
+    "Safety (goggles)" : 250
+    "Miscellaneous" : 80
+```
+
+```mermaid
+flowchart LR
+    subgraph Min[" Minimum ~$600 "]
+        M1[No goggles/meter]
+        M2[Basic parts]
+        M3[You assume safety]
+    end
+    subgraph Rec[" Recommended $800–1400 "]
+        R1[650 nm goggles]
+        R2[Quality parts]
+        R3[Under $2000]
+    end
+    subgraph Full[" Full spec <$2000 "]
+        F1[Power meter]
+        F2[Premium parts]
+        F3[All under $2000]
+    end
+```
+
 - **Minimum:** No goggles or power meter; basic laser and photodiode parts; you assume responsibility for eye safety and power verification.
 - **Recommended:** Laser safety goggles (650 nm, OD as per AS/NZS); quality parts; still under $2000.
 - **Full spec:** Add laser power meter (~$50–200) for verifying ≤1 mW; premium components; all under $2000.
 
 Detailed parts and suppliers are in [hardware/photodiode_detector/parts_list.md](../hardware/photodiode_detector/parts_list.md) and [hardware/laser_transmitter/parts_list.md](../hardware/laser_transmitter/parts_list.md). Physical deployment (time-varying pointing) is described in [docs/technical_specifications.md](technical_specifications.md).
+
+```mermaid
+flowchart TD
+    A[Parts lists] --> B[Photodiode parts_list.md]
+    A --> C[Laser parts_list.md]
+    D[Technical specs] --> E[technical_specifications.md]
+```
 
 ---
 
@@ -47,6 +157,28 @@ Detailed parts and suppliers are in [hardware/photodiode_detector/parts_list.md]
 Order the following from Australian suppliers or those that ship to Australia. Add items to cart, checkout, and pay with a credit or debit card. If an item is out of stock, check the supplier’s website for alternatives or order from another supplier in the list.
 
 **Approximate prices below are in AUD including GST where applicable; confirm on the supplier’s site.**
+
+```mermaid
+flowchart LR
+    A[Choose supplier] --> B[Add to cart]
+    B --> C[Checkout]
+    C --> D[Pay card]
+    D --> E[Out of stock?]
+    E -->|No| F[Order placed]
+    E -->|Yes| G[Alternatives / other supplier]
+    G --> A
+```
+
+```mermaid
+flowchart TD
+    subgraph Suppliers[" Suppliers "]
+        CE[Core Electronics]
+        AL[Altronics]
+        JY[Jaycar]
+        E14[Element14 / Mouser]
+        LS[Laser safety]
+    end
+```
 
 ### Core Electronics (core-electronics.com.au)
 
@@ -58,7 +190,26 @@ Order the following from Australian suppliers or those that ship to Australia. A
 | ADS1115 16-bit I2C ADC breakout | Adafruit or equivalent; 4-channel, I2C address 0x48 | 28–31 |
 | Pan-tilt bracket kit (with servos) | 2-axis mount for time-varying pointing (e.g. SparkFun ROB-14391 or similar) | 23–28 |
 
+```mermaid
+flowchart LR
+    subgraph Core[" Core Electronics cart "]
+        RPi[RPi 4 4GB]
+        PSU[5V 3A PSU]
+        SD[microSD 32GB+]
+        ADC[ADS1115]
+        PT[Pan-tilt kit]
+    end
+```
+
 **If ADS1115 is out of stock:** Altronics sells an ADS1115 module (see below). You can also search Core Electronics for "ADS1115" or "16-bit ADC I2C".
+
+```mermaid
+flowchart TD
+    subgraph Altronics[" Altronics "]
+        LaserMod[650 nm 1 mW laser module]
+        ADS_Alt[ADS1115 module]
+    end
+```
 
 ### Altronics (altronics.com.au)
 
@@ -66,6 +217,20 @@ Order the following from Australian suppliers or those that ship to Australia. A
 |------|--------------------|----------------------|
 | 650 nm 1 mW red laser module | e.g. Z1692; Class 1M compatible; verify ≤1 mW with power meter if possible | 5–8 |
 | ADS1115 16-bit ADC module | Alternative if not bought from Core Electronics | ~21 |
+
+```mermaid
+flowchart LR
+    subgraph Jaycar[" Jaycar "]
+        R[Resistors]
+        C[Capacitors]
+        Op[OPA627]
+        Tr[2N2222]
+        Sw[SPST switch]
+        LED[Red LED]
+        Box[Project boxes]
+        M3[M3 screws]
+    end
+```
 
 ### Jaycar Electronics (jaycar.com.au)
 
@@ -81,6 +246,14 @@ Order the following from Australian suppliers or those that ship to Australia. A
 | M3 screws and standoffs | PCB mounting | 2–4 |
 | 5V 1A wall adapter (if not using regulator on board) | Optional; can use same as Pi if current is sufficient | 10–15 |
 
+```mermaid
+flowchart LR
+    subgraph E14Mouser[" Element14 / Mouser "]
+        PD[Hamamatsu S1227-1010BR photodiode]
+        OpA[OPA627AP op-amp]
+    end
+```
+
 ### Element14 Australia (au.element14.com) or Mouser Australia (mouser.com.au)
 
 | Item | Part / description | Approx. price (AUD) |
@@ -89,6 +262,15 @@ Order the following from Australian suppliers or those that ship to Australia. A
 | OPA627AP op-amp | Low-noise, for photodiode transimpedance amplifier | 25–40 |
 
 **If S1227-1010BR is unavailable:** Contact **Stantron** (stantron.com.au), the Hamamatsu distributor in Australia, or order an equivalent silicon photodiode (400–1100 nm) from the alternatives in [hardware/photodiode_detector/parts_list.md](../hardware/photodiode_detector/parts_list.md).
+
+```mermaid
+flowchart TD
+    subgraph LaserSafety[" Laser safety recommended "]
+        G[650 nm laser safety goggles]
+        OD[OD per AS/NZS]
+        Price[200–310 AUD]
+    end
+```
 
 ### Laser safety (recommended)
 
@@ -104,9 +286,27 @@ Order the following from Australian suppliers or those that ship to Australia. A
 
 **What to do if something is out of stock:** Try the same supplier’s search or "alternatives"; use another supplier from the list; or refer to the "Alternative Parts" sections in [hardware/photodiode_detector/parts_list.md](../hardware/photodiode_detector/parts_list.md) and [hardware/laser_transmitter/parts_list.md](../hardware/laser_transmitter/parts_list.md).
 
+```mermaid
+flowchart TD
+    OOS[Out of stock?] --> S1[Supplier search / alternatives]
+    OOS --> S2[Another supplier from list]
+    OOS --> S3[Alternative Parts in parts_list.md]
+```
+
 ---
 
 ## Phase 3: Delivery
+
+```mermaid
+flowchart TD
+    T[Track orders] --> A[Parcel arrives]
+    A --> O[Open and check]
+    O --> V[Verify not damaged]
+    V --> L[List contents by supplier]
+    L --> M[Missing/damaged?]
+    M -->|Yes| C[Contact supplier]
+    M -->|No| S[Store safely, label bags]
+```
 
 1. **Track your orders.** Use the tracking links in the confirmation emails from each supplier. Note expected delivery dates.
 
@@ -123,11 +323,47 @@ Order the following from Australian suppliers or those that ship to Australia. A
 
 5. **Store everything** in a dry, safe place until you are ready for assembly. Keep small parts in labelled bags so you can find them later.
 
+```mermaid
+flowchart LR
+    subgraph Boxes[" Parcels by supplier "]
+        CE[Core: Pi, PSU, SD, ADS1115, pan-tilt]
+        AL[Altronics: laser, ADS1115]
+        JY[Jaycar: R, C, transistor, switch, LED, boxes]
+        E14[Element14: photodiode, OPA627]
+        LS[Laser safety: goggles, meter]
+    end
+```
+
+```mermaid
+flowchart TD
+    Store[Store in dry, safe place] --> Label[Label bags for small parts]
+    Label --> Ready[Ready for assembly]
+```
+
 ---
 
 ## Phase 4: Assembly
 
 You have two paths: **get help** (no soldering or circuit experience) or **do it yourself** (you are willing to follow circuit diagrams and solder).
+
+```mermaid
+flowchart TD
+    Start[Assembly] --> Choice{Solder / read circuits?}
+    Choice -->|No| PathA[Path A: Get help]
+    Choice -->|Yes| PathB[Path B: Do it yourself]
+    PathA --> Docs[Gather docs + parts]
+    Docs --> Tech[Take to technician / friend]
+    Tech --> Photodiode[Build photodiode module]
+    Tech --> Laser[Build laser module]
+    Tech --> Mount[Mount on pan-tilt]
+    PathB --> Tools[Tools: iron, solder, multimeter]
+    Tools --> BuildP[Build photodiode module]
+    BuildP --> BuildL[Build laser module]
+    BuildL --> PanTilt[Assemble pan-tilt, mount]
+    PanTilt --> Wire[Connect to Raspberry Pi]
+    Mount --> Wire
+    Wire --> Smoke[Smoke test]
+```
 
 ### Path A: Get help
 
@@ -139,6 +375,17 @@ If you do **not** solder or read circuit diagrams:
    - [hardware/laser_transmitter/circuit_design.md](../hardware/laser_transmitter/circuit_design.md)
    - [hardware/laser_transmitter/parts_list.md](../hardware/laser_transmitter/parts_list.md)
    - [docs/safety_compliance.md](safety_compliance.md) (for laser safety and legal requirements)
+
+```mermaid
+flowchart LR
+    subgraph PathA_Docs[" Path A: hand to technician "]
+        A1[assembly_instructions]
+        A2[parts_list photodiode]
+        A3[circuit_design laser]
+        A4[parts_list laser]
+        A5[safety_compliance]
+    end
+```
 
 2. Take these documents and **all the parts you purchased** to an electronics technician or an experienced friend. Ask them to:
    - Build the **photodiode module** (photodiode + op-amp circuit + ADC) per the photodiode assembly instructions and parts list.
@@ -153,6 +400,17 @@ If you are willing to solder and follow circuit diagrams:
 
 1. **Tools you need:** Soldering iron, solder, multimeter, wire cutters/strippers, small screwdriver. Optional: helping hands, magnifier.
 
+```mermaid
+flowchart TD
+    subgraph Tools[" Path B: tools "]
+        T1[Soldering iron, solder]
+        T2[Multimeter]
+        T3[Wire cutters / strippers]
+        T4[Small screwdriver]
+        T5[Optional: helping hands, magnifier]
+    end
+```
+
 2. **Photodiode module:** Follow [hardware/photodiode_detector/assembly_instructions.md](../hardware/photodiode_detector/assembly_instructions.md) step by step. Use [hardware/photodiode_detector/parts_list.md](../hardware/photodiode_detector/parts_list.md) for part numbers and values. Build the transimpedance amplifier (op-amp + feedback resistor/capacitor), connect the photodiode, add the low-pass filter if desired, and connect the output to the ADS1115 input. Mount the ADS1115 breakout and photodiode board in an enclosure.
 
 3. **Laser module:** Follow [hardware/laser_transmitter/circuit_design.md](../hardware/laser_transmitter/circuit_design.md) and [hardware/laser_transmitter/parts_list.md](../hardware/laser_transmitter/parts_list.md). Build the laser driver (current-limiting resistor, transistor, base resistor), the safety interlock circuit (switch, pull-up, status LED), and connect the laser module. Mount everything in an enclosure. **Never point the laser at people, animals, or aircraft.**
@@ -165,6 +423,45 @@ If you are willing to solder and follow circuit diagrams:
    - **Interlock:** Connect the interlock signal to **GPIO 23** (and pull-up to 3.3 V as in the circuit design). When the safety switch is closed, the Pi will see a "safe" state and allow arming.
    - **Power:** Supply 5 V to the Pi and to any regulator on the photodiode/laser boards as needed.
 
+```mermaid
+flowchart LR
+    subgraph RPi[" Raspberry Pi "]
+        GPIO2[SDA - GPIO 2]
+        GPIO3[SCL - GPIO 3]
+        GPIO18[GPIO 18 - PWM]
+        GPIO23[GPIO 23 - Interlock]
+        P33[3.3 V]
+        P5V[5 V]
+        GND[GND]
+    end
+    subgraph HW[" Hardware "]
+        ADS[ADS1115: VDD, GND, SDA, SCL]
+        Laser[Laser driver control]
+        Interlock[Interlock signal]
+    end
+    GPIO2 --> ADS
+    GPIO3 --> ADS
+    P33 --> ADS
+    GPIO18 --> Laser
+    GPIO23 --> Interlock
+    GND --> ADS
+```
+
+```mermaid
+flowchart TD
+    subgraph System[" NIoLS hardware block "]
+        Pi[Raspberry Pi 4]
+        PD[Photodiode + op-amp + ADC]
+        Laser[Laser + driver + interlock]
+        PT[Pan-tilt]
+        Pi <--> PD
+        Pi <--> Laser
+        Pi <--> PT
+        PD --> PT
+        Laser --> PT
+    end
+```
+
 6. **Smoke test:** With the safety interlock **closed** (safe to enable), power on the Raspberry Pi and the photodiode/laser boards. There should be no smoke or smell. Check that the interlock LED (if fitted) shows "safe" when the switch is closed. Do not enable the laser yet; that happens from the software after calibration and arming.
 
 ---
@@ -172,6 +469,18 @@ If you are willing to solder and follow circuit diagrams:
 ## Phase 5: Software setup
 
 Assume you have a **Raspberry Pi 4** with no prior Linux experience. Do the following in order.
+
+```mermaid
+flowchart TD
+    F[Flash Pi OS to microSD] --> B[Boot Pi, connect peripherals]
+    B --> I2C[Enable I2C]
+    I2C --> Copy[Copy NIoLS to Pi]
+    Copy --> Py[pip install -r requirements.txt]
+    Py --> Node[npm install in frontend]
+    Node --> Config[Edit device_config.yaml if needed]
+    Config --> Start[python3 start_device.py]
+    Start --> Browser[Open http://localhost:8000]
+```
 
 1. **Flash Raspberry Pi OS to the microSD card.**
    - On another computer, download **Raspberry Pi Imager** from the official Raspberry Pi website.
@@ -182,6 +491,17 @@ Assume you have a **Raspberry Pi 4** with no prior Linux experience. Do the foll
 2. **Boot the Pi and connect it.**
    - Connect keyboard, mouse, and monitor (HDMI). Connect the Pi to your network (Ethernet or Wi-Fi).
    - Power on the Pi. Follow the first-run wizard: set language, time zone, and a password. Connect to Wi-Fi if you use it.
+
+```mermaid
+flowchart TD
+    subgraph Peripherals[" First boot "]
+        K[Keyboard, mouse, HDMI]
+        N[Ethernet or Wi-Fi]
+        W[Wizard: language, timezone, password]
+        K --> W
+        N --> W
+    end
+```
 
 3. **Enable I2C** (needed for the ADS1115).
    - Open the main menu → Preferences → Raspberry Pi Configuration (or run `sudo raspi-config` in a terminal).
@@ -217,6 +537,20 @@ Assume you have a **Raspberry Pi 4** with no prior Linux experience. Do the foll
 7. **Configuration file.**
    - The config file is `NIoLS/software/config/device_config.yaml`. For a first run, you can leave it as-is. Defaults assume: I2C address 0x48, laser on GPIO 18, interlock on GPIO 23. If your wiring is different, edit the `hardware.photodiode` and `hardware.laser` sections with the correct pins and I2C address.
 
+```mermaid
+flowchart TD
+    subgraph Config[" device_config.yaml "]
+        H[hardware]
+        C[calibration]
+        E[et_interface]
+        H --> P[photodiode: I2C 0x48]
+        H --> L[laser: GPIO 18, interlock 23]
+        C --> Dark[dark_voltage]
+        C --> Base[baseline_above_dark_v]
+        E --> Det[detection]
+    end
+```
+
 8. **Verify and start the device.**
    - From a terminal:
      ```bash
@@ -232,6 +566,16 @@ Assume you have a **Raspberry Pi 4** with no prior Linux experience. Do the foll
    `cd ~/NIoLS/tests && python3 run_tests.py`  
    This checks that the software and config are consistent. Some tests may require hardware to be connected.
 
+```mermaid
+flowchart LR
+    Start[start_device.py] --> API[Backend API port 8000]
+    Start --> Static[Serve frontend]
+    Dev[npm run dev] --> Front[Frontend port 3000]
+    Front --> API
+    Browser[Browser] --> Static
+    Browser --> Front
+```
+
 You should now see the NIoLS interface in the browser. Next is calibration, then operation.
 
 ---
@@ -239,6 +583,17 @@ You should now see the NIoLS interface in the browser. Next is calibration, then
 ## Phase 6: Calibration
 
 Calibration sets the "dark" level and the baseline above which the system considers the detection envelope satisfied. See [docs/technical_specifications.md](technical_specifications.md) for more detail.
+
+```mermaid
+flowchart TD
+    subgraph Cal[" Calibration steps "]
+        D[Cover photodiode] --> M[Measure dark voltage]
+        M --> SetD[Set dark_voltage in config]
+        SetD --> B[Set baseline_above_dark_v]
+        B --> Opt[Optional: wavelength calibration points]
+        Opt --> Restart[Restart device]
+    end
+```
 
 1. **Dark voltage (photodiode with no light).**
    - Cover the photodiode completely (e.g. with opaque material). Run the device and note the voltage shown for the photodiode channel (or read it from the measurement display).
@@ -251,6 +606,14 @@ Calibration sets the "dark" level and the baseline above which the system consid
 3. **Optional: wavelength calibration.**  
    If you have known light sources (e.g. LEDs or lasers at known wavelengths), you can add calibration points to **calibration.points** in `device_config.yaml` (wavelength in nm, voltage in V). This improves wavelength display; it is not required for the NHI envelope logic.
 
+```mermaid
+flowchart LR
+    Dark[dark_voltage] --> Base[baseline_above_dark_v]
+    Base --> Envelope[Detection envelope]
+    Envelope --> Satisfied[Voltage >= dark + baseline]
+    Satisfied --> Band[320–1100 nm band]
+```
+
 Restart the device after any config change so the new calibration is loaded.
 
 ---
@@ -258,6 +621,37 @@ Restart the device after any config change so the new calibration is loaded.
 ## Phase 7: Operation
 
 This is the daily or session procedure to run the NHI detection loop and complete the two-way link when the envelope is satisfied. It follows [docs/NHI_Detection_Prototype.md](NHI_Detection_Prototype.md) "How to Run".
+
+```mermaid
+stateDiagram-v2
+    [*] --> INITIALIZED: Initialize
+    INITIALIZED --> EMIT_READY: Arm + Confirm arm
+    EMIT_READY --> EMITTING: Envelope satisfied + Send response (uplink)
+    EMITTING --> [*]: Two-way link complete
+    EMIT_READY --> FAULT: Interlock open / error
+```
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant G as GUI
+    participant B as Backend
+    participant H as Hardware
+    U->>G: Start device, Initialize
+    G->>B: Load config, calibration
+    B->>H: Init hardware
+    U->>G: Arm, Confirm arm
+    G->>B: Arm request
+    B->>H: Check interlock
+    U->>G: Start measurement
+    G->>B: Read photodiode
+    B->>H: ADS1115 read
+    H-->>B: Voltage
+    B-->>G: Envelope status
+    U->>G: Send response (uplink) when satisfied
+    G->>B: Emit command
+    B->>H: Laser pattern
+```
 
 1. **Start the device.**  
    Run `python3 start_device.py` from `NIoLS/software` and open the browser to the URL shown (e.g. http://localhost:8000).
@@ -276,10 +670,35 @@ This is the daily or session procedure to run the NHI detection loop and complet
    - **Envelope status:** Satisfied or Not satisfied.
    - **Envelope satisfied** means: optical signal in the 320–1100 nm band is above the baseline (dark + baseline_above_dark_v). **No identification or contact is claimed** — only that the envelope condition is met.
 
+```mermaid
+flowchart TD
+    subgraph Panel[" NHI Detection Envelope panel "]
+        Status[Envelope status: Satisfied / Not satisfied]
+        Cond[Condition: 320–1100 nm signal > dark + baseline]
+        Claim[No identification or contact claimed]
+        Status --> Cond --> Claim
+    end
+    Btn[Send response (uplink) button] --> Status
+```
+
 6. **Send response when the envelope is satisfied.**  
    When the panel shows **Envelope: Satisfied** and the state is **EMIT_READY**, click **Send response (uplink)**. The system will emit the configured laser pattern (e.g. geometric circle, size 12) and complete the two-way optical link once.
 
 **Session checklist:** Power on → Check interlock closed → Start device → Initialize → Arm → Confirm arm → Start measurement → Open NHI panel → When envelope satisfied and EMIT_READY, click "Send response (uplink)".
+
+```mermaid
+flowchart LR
+    P[Power on] --> I[Interlock closed]
+    I --> S[Start device]
+    S --> Init[Initialize]
+    Init --> Arm[Arm]
+    Arm --> Conf[Confirm arm]
+    Conf --> Meas[Start measurement]
+    Meas --> Panel[Open NHI panel]
+    Panel --> Satisfied{Envelope satisfied?}
+    Satisfied -->|Yes| Send[Send response uplink]
+    Satisfied -->|No| Panel
+```
 
 **Safety:** Never point the laser at people, animals, or aircraft. Keep the safety interlock engaged except when intentionally testing. See [docs/safety_compliance.md](safety_compliance.md) and [hardware/laser_transmitter/safety_protocols.md](../hardware/laser_transmitter/safety_protocols.md).
 
@@ -288,6 +707,17 @@ This is the daily or session procedure to run the NHI detection loop and complet
 ## Phase 8: Success / End state
 
 **"ETs having landed on Earth"** in this guide means: **the system is deployed and operational, and you have completed the two-way optical link at least once** — i.e. the detection envelope was satisfied and you clicked "Send response (uplink)" to send the laser pattern.
+
+```mermaid
+flowchart TD
+    subgraph Success[" Success = End state "]
+        D[System deployed and operational]
+        L[Two-way optical link completed at least once]
+        D --> L
+        L --> Loop[Run NHI loop anytime]
+        Loop --> Init[Initialize → Arm → Measure → Respond when satisfied]
+    end
+```
 
 You are now in the state where:
 - Hardware is in place (photodiode, laser, Raspberry Pi, time-varying pointing).
@@ -299,9 +729,44 @@ You are now in the state where:
 - Maintain **safety**: interlock, power limit (≤1 mW), goggles when appropriate, and never point at aircraft or people.
 - Run the loop as needed; the system is ready for ongoing operation per the ET Engineering Interface Model.
 
+```mermaid
+flowchart TD
+    subgraph Next[" Next steps "]
+        P[Protocol: ET_Engineering_Interface_Model]
+        S[Safety: interlock, ≤1 mW, goggles, no aircraft/people]
+        R[Run loop as needed]
+        P --> R
+        S --> R
+    end
+```
+
 ---
 
 ## Reference summary
+
+```mermaid
+mindmap
+  root((Reference docs))
+    Budget and parts
+      photodiode_detector parts_list
+      laser_transmitter parts_list
+      technical_specifications
+    Assembly
+      photodiode assembly_instructions
+      laser circuit_design and parts_list
+      safety_compliance
+    Software and config
+      README
+      PROFESSIONAL_SETUP
+      user_manual
+      device_config.yaml
+    Operation and NHI
+      NHI_Detection_Prototype
+      ET_Engineering_Interface_Model
+    Safety
+      safety_compliance
+      laser_transmitter safety_protocols
+```
 
 | Phase | Key documents |
 |-------|----------------|
@@ -310,6 +775,17 @@ You are now in the state where:
 | Software & config | [README.md](../README.md), [PROFESSIONAL_SETUP.md](../PROFESSIONAL_SETUP.md), [docs/user_manual.md](user_manual.md), [software/config/device_config.yaml](../software/config/device_config.yaml) |
 | Operation & NHI | [docs/NHI_Detection_Prototype.md](NHI_Detection_Prototype.md), [docs/ET_Engineering_Interface_Model.md](ET_Engineering_Interface_Model.md) |
 | Safety | [docs/safety_compliance.md](safety_compliance.md), [hardware/laser_transmitter/safety_protocols.md](../hardware/laser_transmitter/safety_protocols.md) |
+
+```mermaid
+flowchart LR
+    subgraph Phases[" Phase → docs "]
+        P1[Budget] --> D1[parts_list, tech specs]
+        P2[Assembly] --> D2[assembly, circuit_design, safety]
+        P3[Software] --> D3[README, config, user_manual]
+        P4[Operation] --> D4[NHI_Detection, ET_Interface]
+        P5[Safety] --> D5[safety_compliance, protocols]
+    end
+```
 
 ---
 
