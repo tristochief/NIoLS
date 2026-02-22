@@ -633,5 +633,291 @@ And historically, **method precedes discovery**.
 
 ---
 
+## Ethics & Motivation Appendix
+
+> **Purpose of this appendix**
+>
+> This appendix clarifies how the NIoLS project can openly state a motivating *goal* (including the search for non‑human intelligence, NHI) while preserving scientific rigor, participant wellbeing, and methodological integrity. It is designed to integrate seamlessly with the main deployment guide and to serve as an explicit ethical guardrail.
+
+---
+
+## A.1 Goal vs. Hypothesis: Maintaining Scientific Integrity
+
+In scientific practice, a **goal** and a **hypothesis** serve different roles:
+
+- A **goal** defines the direction of inquiry (what motivates the work).
+- A **hypothesis** is a testable claim evaluated by evidence.
+
+Many respected research programs are goal‑driven without presupposing their hypotheses are true (e.g., genome mapping, space exploration, technosignature searches). Likewise, NIoLS may name NHI exploration as a **goal**, while treating all claims about signals or interactions as **hypotheses subject to falsification**.
+
+**Policy:**
+- Goals may be explicit.
+- Hypotheses must remain testable, pre‑registered where feasible, and open to disconfirmation.
+
+---
+
+## A.2 Identity, Meaning, and Research Motivation
+
+Human research is often motivated by identity, worldview, or a sense of purpose. History shows that personal meaning has driven sustained inquiry without determining outcomes. Modern research ethics recognizes that:
+
+- Motivation is **value‑laden**.
+- Validation must be **evidence‑laden**.
+
+NIoLS acknowledges that participants and founders may hold meaningful identity narratives that motivate participation. These narratives **do not constitute empirical claims** within the project.
+
+**Policy:**
+- Identity narratives may motivate participation.
+- Identity narratives must not be used as evidence or as a substitute for data.
+
+---
+
+## A.3 Moral Imperatives and Research Agendas
+
+Research agendas frequently arise from moral commitments (e.g., public health, climate risk, patient advocacy). Ethical scholarship supports the view that values legitimately guide *what* is studied, while methods govern *how* truth claims are evaluated.
+
+Within NIoLS, it is ethically permissible to state that exploring NHI matters deeply, provided that:
+
+- Methods remain transparent and falsifiable.
+- Participant wellbeing is prioritized.
+- Conclusions are constrained by data.
+
+**Policy:**
+- Moral motivation is allowed.
+- Evidence alone determines conclusions.
+
+---
+
+## A.4 Guardrails Preventing Epistemic Conflict
+
+To ensure compatibility between motivation and rigor, NIoLS enforces the following safeguards:
+
+1. **Explicit Motivation**
+   - Stating goals openly reduces hidden bias and allows scrutiny.
+
+2. **Strict Separation of Data Types**
+   - Physical measurements (photons, voltages, timestamps) are logged independently from subjective or phenomenological reports.
+
+3. **Pre‑Defined Disconfirmation Criteria**
+   - Null results and failures are valid outcomes and inform protocol revision.
+
+4. **Anomaly Taxonomy**
+   - All detections are classified (known artificial, known natural, instrumental, unknown, persistent unexplained) prior to interpretation.
+
+5. **Wellbeing First**
+   - Psychological safety, consent, grounding practices, and the right to disengage are mandatory.
+
+---
+
+## A.5 Relationship to Mainstream Scientific Practice
+
+This appendix aligns with established norms in high‑uncertainty research:
+
+- **Philosophy of science:** paradigm awareness, research programs, and methodological pluralism.
+- **Research ethics:** values guide agendas; methods constrain claims.
+- **Precedent:** SETI explicitly seeks contact while treating detection as uncertain and evidence‑based.
+
+NIoLS differs not by abandoning science, but by expanding the *search space* while maintaining controls.
+
+---
+
+## A.6 Practical Implications for Deployment and Operation
+
+During deployment and operation:
+
+- Operators may hold strong personal motivation while executing neutral procedures.
+- Logs, thresholds, and classifications are not adjusted to fit expectations.
+- Review and interpretation prioritize conservative explanations.
+- External audit and skeptical review are encouraged.
+
+This preserves credibility while allowing meaningful engagement.
+
+---
+
+## A.7 Summary
+
+NIoLS can coherently state:
+
+- **Goal:** Explore the possibility of interaction with non‑human intelligence.
+- **Method:** Apply rigorous instrumentation, classification, and falsifiable analysis.
+- **Ethic:** Protect participant wellbeing and epistemic humility.
+- **Interpretation:** Let evidence—not identity—decide outcomes.
+
+When these boundaries are respected, **strong motivation and scientific rigor coexist without conflict**.
+
+---
+
+*End of Ethics & Motivation Appendix.*
+---
+# NIoLS Deployment Guide  
+## Final Ethics Appendix: Integrity, Motivation, Identity, and Scientific Rigor
+
+> **Status:** Canonical ethics appendix  
+> **Applies to:** All NIoLS design, deployment, operation, analysis, and publication  
+> **Priority:** Overrides all other sections in case of conflict
+
+---
+
+## F.1 Purpose and Scope
+
+This appendix consolidates and finalizes the ethical framework governing NIoLS. It integrates prior ethics material into a single, enforceable reference that addresses:
+
+- Motivation vs. hypothesis
+- Identity transparency vs. empirical claims
+- Postmodern insights on situated knowledge
+- Participant wellbeing and mental-health safety
+- Scientific rigor under high uncertainty
+
+**Non-negotiable principle:**  
+NIoLS preserves *epistemic integrity* while allowing *explicit motivation*—without allowing belief, identity, or desire to substitute for evidence.
+
+---
+
+## F.2 Goals, Hypotheses, and Scientific Discipline
+
+### Definitions
+- **Goal:** The direction and motivation of inquiry.
+- **Hypothesis:** A testable, falsifiable claim evaluated by data.
+
+NIoLS may explicitly state the **goal** of exploring potential interaction with non-human intelligence (NHI). However:
+
+- All claims about signals, interactions, or entities are **hypotheses**.
+- Hypotheses must be pre-registered where feasible.
+- Null results and failures are valid and expected outcomes.
+
+**Policy:**  
+Goals may inspire work; evidence alone determines conclusions.
+
+---
+
+## F.3 Identity Transparency as an Ethical Requirement
+
+### Motivation Disclosure
+NIoLS recognizes that researchers and participants may hold deeply meaningful identity narratives that motivate engagement. Concealing motivations introduces hidden bias and undermines trust.
+
+**Therefore:**  
+NIoLS requires *honest disclosure of motivations* while enforcing strict separation between identity and inference.
+
+### Boundaries
+- Identity narratives are **not evidence**.
+- Identity narratives must not influence thresholds, classifications, or conclusions.
+- Identity narratives must not be presented as empirical claims.
+
+This framework follows elite research ethics and postmodern insights on situated knowledge: transparency strengthens objectivity.
+
+---
+
+## F.4 Postmodern Insight: Situated Objectivity
+
+Philosophy of science and postmodern epistemology (e.g., Kuhn, Longino, Haraway) emphasize that:
+
+- All observation is theory-laden.
+- Claims of neutrality can conceal unexamined assumptions.
+- Reflexivity improves rigor.
+
+NIoLS adopts **situated objectivity**:
+- Motivations and standpoints are declared.
+- Methods are designed to neutralize bias.
+- Interpretation is constrained by data.
+
+This avoids scientism without abandoning science.
+
+---
+
+## F.5 Guardrails Preventing Epistemic Slippage
+
+The following safeguards are mandatory:
+
+1. **Goal ≠ Hypothesis Firewall**  
+   Motivation cannot dictate inference.
+
+2. **Dual-Log Architecture**  
+   - Physical Log: measurements only  
+   - Phenomenological Log: subjective reports only  
+   Logs are analyzed independently.
+
+3. **Pre-Registered Disconfirmation**  
+   Criteria for falsification and protocol revision must be defined in advance.
+
+4. **Anomaly Taxonomy**  
+   All detections are classified prior to interpretation.
+
+5. **External Skeptical Review**  
+   Independent critics are invited to audit data and methods.
+
+6. **Documentation of Null Results**  
+   Failures are published with the same care as positive findings.
+
+---
+
+## F.6 Consciousness Practices and CE5-Derived Methods
+
+Meditative or CE5-derived practices are permitted **only** as:
+
+- Human coordination tools
+- Attention stabilization methods
+- Psychological state management
+
+They are **never** treated as:
+- Causal mechanisms
+- Signal sources
+- Evidence channels
+
+This aligns with human-in-the-loop engineering and neuroscience research.
+
+---
+
+## F.7 Wellbeing and Mental-Health Priority
+
+NIoLS prioritizes participant wellbeing over outcomes.
+
+**Hard rules:**
+- No identity claims may escalate into evidence claims.
+- No pressure to interpret ambiguous data.
+- Grounding and opt-out mechanisms are mandatory.
+- If fixation, distress, or belief rigidity appears, interpretation is suspended.
+
+Wellbeing is a success condition.
+
+---
+
+## F.8 What This Appendix Does *Not* Do
+
+This framework does **not**:
+- Assert the factual truth of extraterrestrial identities
+- Validate telepathic communication claims
+- Require acceptance of any personal belief
+- Lower evidentiary standards
+
+It governs *process*, not *truth*.
+
+---
+
+## F.9 Enforcement and Precedence
+
+This appendix has **precedence over all other NIoLS documents**.
+
+If any practice:
+- Requires belief to function, or
+- Treats identity as evidence,
+
+that practice must be halted or revised.
+
+---
+
+## F.10 Final Statement
+
+NIoLS affirms that:
+
+- **Honest motivation improves rigor**
+- **Evidence remains sovereign**
+- **Null results strengthen credibility**
+- **Human meaning and scientific discipline can coexist**
+
+When these principles are enforced, NIoLS operates as a legitimate, high-integrity research program under extreme uncertainty—capable of exploration without epistemic collapse.
+
+---
+*End of Final Ethics Appendix.*
+---
+
 *End of document.*
 
